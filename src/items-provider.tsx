@@ -1,4 +1,10 @@
-import React, { createContext, useCallback, useContext, useState } from "react";
+import React, {
+	createContext,
+	useCallback,
+	useContext,
+	useEffect,
+	useState,
+} from "react";
 
 export type Item = {
 	id: string;
@@ -21,30 +27,51 @@ const ItemsProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
 	const [items, setItems] = useState<ItemsContext["items"]>([]);
 
-	const addItem = useCallback((item: Item) => {
-		setItems((prev) => {
-			const newItems = [...prev, item];
-			return newItems;
-		});
+	const syncLocalStorage = useCallback((items: Item[]) => {
+		localStorage.setItem("shopping-list", JSON.stringify(items));
 	}, []);
 
-	const removeItem = useCallback((itemId: string) => {
-		setItems((prev) => {
-			const newItems = prev.filter((item) => item.id !== itemId);
-			return newItems;
-		});
-	}, []);
-
-	const checkItem = useCallback((itemId: string, checked: boolean) => {
-		setItems((prev) => {
-			const newItems = prev.map((item) => {
-				if (item.id === itemId) {
-					const updatedItem = { ...item, checked };
-					return updatedItem;
-				} else return item;
+	const addItem = useCallback(
+		(item: Item) => {
+			setItems((prev) => {
+				const newItems = [...prev, item];
+				syncLocalStorage(newItems);
+				return newItems;
 			});
-			return newItems;
-		});
+		},
+		[syncLocalStorage]
+	);
+
+	const removeItem = useCallback(
+		(itemId: string) => {
+			setItems((prev) => {
+				const newItems = prev.filter((item) => item.id !== itemId);
+				syncLocalStorage(newItems);
+				return newItems;
+			});
+		},
+		[syncLocalStorage]
+	);
+
+	const checkItem = useCallback(
+		(itemId: string, checked: boolean) => {
+			setItems((prev) => {
+				const newItems = prev.map((item) => {
+					if (item.id === itemId) {
+						const updatedItem = { ...item, checked };
+						return updatedItem;
+					} else return item;
+				});
+				syncLocalStorage(newItems);
+				return newItems;
+			});
+		},
+		[syncLocalStorage]
+	);
+
+	useEffect(() => {
+		const localList = localStorage.getItem("shopping-list");
+		if (localList) setItems(JSON.parse(localList));
 	}, []);
 
 	return (
