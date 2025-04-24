@@ -41,7 +41,7 @@ const Form = () => {
 						className="border-b border-slate-500 font-bold"
 						name="title"
 						type="text"
-						placeholder="Neuer Artikel"
+						placeholder="New Article"
 						ref={titleRef}
 					/>
 					<div className="text-sm flex gap-2">
