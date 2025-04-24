@@ -32,16 +32,36 @@ const Form = () => {
 
 	return (
 		<section>
-			<h2>Neuer Artikel</h2>
-			<form onSubmit={submit}>
-				<input name="title" type="text" ref={titleRef} />
-				<input
-					name="amount"
-					type="number"
-					defaultValue={1}
-					ref={amountRef}
-				/>
-				<button type="submit">hinzufügen</button>
+			<form
+				className="bg-slate-700 rounded-md p-2 flex justify-between items-center px-4 py-2"
+				onSubmit={submit}
+			>
+				<div className="flex flex-col gap-2">
+					<input
+						className="border-b border-slate-500 font-bold"
+						name="title"
+						type="text"
+						placeholder="Neuer Artikel"
+						ref={titleRef}
+					/>
+					<div className="text-sm flex gap-2">
+						<p>Menge:</p>
+
+						<input
+							className="border-b border-slate-500"
+							name="amount"
+							type="number"
+							defaultValue={1}
+							ref={amountRef}
+						/>
+					</div>
+				</div>
+				<button
+					className="size-8 rounded cursor-pointer hover:opacity-80"
+					type="submit"
+				>
+					➕
+				</button>
 			</form>
 			<div>{error}</div>
 		</section>

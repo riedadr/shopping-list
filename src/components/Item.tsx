@@ -13,7 +13,11 @@ const Item: React.FC<{ data: ItemType }> = ({ data }) => {
 	);
 
 	return (
-		<div className="shadow bg-slate-800 rounded-md flex justify-between items-center px-4 py-2">
+		<div
+			className={`shadow bg-slate-800 rounded-md flex justify-between items-center px-4 py-2 ${
+				data.checked ? "opacity-50" : "opacity-100"
+			}`}
+		>
 			<div className="flex gap-4">
 				<input type="checkbox" onChange={onChange} />
 				<div className="leading-none">
@@ -23,7 +27,12 @@ const Item: React.FC<{ data: ItemType }> = ({ data }) => {
 					</p>
 				</div>
 			</div>
-			<button onClick={() => removeItem(data.id)}>🗑️</button>
+			<button
+				className="size-8 rounded cursor-pointer hover:opacity-80"
+				onClick={() => removeItem(data.id)}
+			>
+				🗑️
+			</button>
 		</div>
 	);
 };
