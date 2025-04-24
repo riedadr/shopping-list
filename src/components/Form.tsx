@@ -45,7 +45,7 @@ const Form = () => {
 						ref={titleRef}
 					/>
 					<div className="text-sm flex gap-2">
-						<p>Menge:</p>
+						<p>Amount:</p>
 
 						<input
 							className="border-b border-slate-500"

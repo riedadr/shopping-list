@@ -23,7 +23,7 @@ const Item: React.FC<{ data: ItemType }> = ({ data }) => {
 				<div className="leading-none">
 					<h3 className="font-bold">{data.title}</h3>
 					<p className="text-sm">
-						Menge: <code>{data.amount}</code>
+						Amount: <code>{data.amount}</code>
 					</p>
 				</div>
 			</div>
