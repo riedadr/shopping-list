@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useItems } from "../items-provider";
 
 const Form = () => {
@@ -7,7 +7,7 @@ const Form = () => {
 	const titleRef = useRef<HTMLInputElement>(null);
 	const amountRef = useRef<HTMLInputElement>(null);
 
-	const submit = (e: React.FormEvent) => {
+	const submit = useCallback((e: React.FormEvent) => {
 		e.preventDefault();
 
 		try {
@@ -28,7 +28,7 @@ const Form = () => {
 		} catch (error) {
 			setError((error as Error).message);
 		}
-	};
+	}, [addItem]);
 
 	return (
 		<section>
