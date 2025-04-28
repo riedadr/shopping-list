@@ -12,10 +12,10 @@ const Form = () => {
 
 		try {
 			const title = titleRef.current?.value;
-			if (!title) throw new Error("Name ungültig");
+			if (!title) throw new Error("Invalid name");
 
 			const amount = parseInt(amountRef.current?.value ?? "");
-			if (!amount) throw new Error("Menge ungültig");
+			if (!amount || amount < 1) throw new Error("Invalid amount");
 
 			addItem({
 				id: crypto.randomUUID(),
@@ -63,7 +63,7 @@ const Form = () => {
 					➕
 				</button>
 			</form>
-			<div>{error}</div>
+			<div className="bg-red-500 mt-2">{error}</div>
 		</section>
 	);
 };
